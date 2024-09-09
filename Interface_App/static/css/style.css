@@ -1,0 +1,117 @@
+/* Reset some default styles */
+body, h1, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Header Styles */
+.header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.header h1 {
+    float: left;
+    margin-left: 20px;
+}
+
+.navbar {
+    float: right;
+    margin-right: 20px;
+}
+
+.navbar ul {
+    list-style: none;
+}
+
+.navbar ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Styles */
+.main-content {
+    padding: 20px 0;
+}
+
+/* Footer Styles */
+.footer {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* Exhibit Section Styles */
+.exhibits {
+    margin-top: 20px;
+}
+
+.exhibits h3 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+.exhibits ul {
+    list-style: none;
+    padding: 0;
+}
+
+.exhibits ul li {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.exhibits ul li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.exhibits ul li img {
+    width: 100px; /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    margin-right: 15px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.exhibits ul li span {
+    font-size: 16px;
+}
+
+.exhibits ul li a:hover {
+    color: #0056b3;
+}
