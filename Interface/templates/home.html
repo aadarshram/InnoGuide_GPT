@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+        <div class="col-md-10 col-xl-8">
+            <div class="card">
+                <div class="card-header msg_head">
+                    <h2 class="text-center">Welcome to the Museum Tour Guide!</h2>
+                    <p class="text-center">Explore our museum and learn more about the exhibits below.</p>
+                </div>
+                <div class="card-body">
+                    <section class="exhibits">
+                        <h3 class="mb-4">Exhibits</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{{ url_for('exhibit', exhibit_id='A') }}" class="exhibit-link">
+                                    <div class="card">
+                                        <img src="{{ url_for('static', filename='images/exhibit_a.png') }}" class="card-img-top" alt="Exhibit A">
+                                        <div class="card-body text-center">
+                                            <span>Exhibit A</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{{ url_for('exhibit', exhibit_id='B') }}" class="exhibit-link">
+                                    <div class="card">
+                                        <img src="{{ url_for('static', filename='images/exhibit_b.png') }}" class="card-img-top" alt="Exhibit B">
+                                        <div class="card-body text-center">
+                                            <span>Exhibit B</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Add more exhibits similarly as needed -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
