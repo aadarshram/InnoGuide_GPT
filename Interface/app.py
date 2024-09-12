@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', active_page = 'home')
 
 @app.route('/exhibit/<exhibit_id>')
 def exhibit(exhibit_id):
@@ -14,13 +14,18 @@ def exhibit(exhibit_id):
 
 @app.route('/chatbot')
 def chatbot():
-    return render_template('chatbot.html')
+    return render_template('chatbot.html', active_page = 'chatbot')
+
+@app.route('/about')
+def about():
+    return render_template('about.html', active_page = 'about')
+
 
 @app.route('/get', methods=['POST'])
 def query():
     input = request.form["msg"]
     # response = query_rag_chain(input)
-    response = f'Hi, your input was this: {input}'
+    response = f'alnldlcldckbdbcbkdbcdbcdc  ckdcldlc'
     return jsonify({"response": response})
     
 if __name__ == '__main__':
