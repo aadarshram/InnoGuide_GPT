@@ -1,0 +1,1 @@
+Hi, this is a sample RAG. The prime Minister of India is Modi. President is Murmu.

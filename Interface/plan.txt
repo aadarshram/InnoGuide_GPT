@@ -1,0 +1,45 @@
+depot to exhibits to end
+depot to exhibit 1 and exhibit last to end is default
+magnetic strip for navigation
+detect from the magnet where location of a given exhibit is and start the basic explanation script
+wait for ppl to see exhibit
+after basic script activate chatbot for conversation.
+then move on to next exhibit
+
+display the exhibit plan on app and details.
+
+the chatbot should be aware of the kind of exhibit to do appropriate interruption. FOr exmaple for static it is more of continous conversation and for vdieo or audio it is better not to interrupt at all.
+
+Get UI UX plan for the app. look and feel. whats needed and how.
+backend code workflow. integration with navigation module, the app, with the APIs.
+Data in data out flow
+
+You get a flag from the nav team to stop bot from motion to stop. The location tag is a key with the state that has been reached. These go into a funciton to retriete the corresponding scripts. Run the scripts
+have the cnversation history for atleast the last exhibit visited
+once script is done return a flag - this activates the chatbot
+
+the chatbot does conversation for a particular duration to not prolong duration.
+
+proper prompt framework for the conversation flow.
+
+dont have too many variables, lists dictionaries, focus on secuirty to prevent tampering.
+
+for debugging you do SSH into the edge device jetseon get network id and get access to the scripts. any error from any of the software is logged into a file. now you can have a local test environment have a copy of the actual code and get the log of errors and test it and fix it.
+kind of like a digital twin.
+
+save the production ready code at any level versions, have metadata json and yaml files.
+
+use dro.io for the diagram stuff
+
+1. ui. UX
+2. sTT
+3. TTS
+4. LLM for chatbot
+
+demn, chatgot can get input and give output in hindi alongside english
+
+
+touch implementation
+
+
+

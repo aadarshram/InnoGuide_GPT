@@ -1,44 +1,248 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
-<div class="container-fluid h-100">
-    <div class="row justify-content-center h-100">
-        <div class="col-md-10 col-xl-8">
-            <div class="card">
-                <div class="card-header msg_head">
-                    <h2 class="text-center">Welcome to the Museum Tour Guide!</h2>
-                    <p class="text-center">Explore our museum and learn more about the exhibits below.</p>
-                </div>
-                <div class="card-body">
-                    <section class="exhibits">
-                        <h3 class="mb-4">Exhibits</h3>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <a href="{{ url_for('exhibit', exhibit_id='A') }}" class="exhibit-link">
-                                    <div class="card">
-                                        <img src="{{ url_for('static', filename='images/exhibit_a.png') }}" class="card-img-top" alt="Exhibit A">
-                                        <div class="card-body text-center">
-                                            <span>Exhibit A</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{{ url_for('exhibit', exhibit_id='B') }}" class="exhibit-link">
-                                    <div class="card">
-                                        <img src="{{ url_for('static', filename='images/exhibit_b.png') }}" class="card-img-top" alt="Exhibit B">
-                                        <div class="card-body text-center">
-                                            <span>Exhibit B</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Add more exhibits similarly as needed -->
-                        </div>
-                    </section>
-                </div>
-            </div>
+<div class="mask" style="background-color: hsla(0, 0%, 0%, 0.3)">
+  <div class="container d-flex justify-content-center align-items-center h-100">
+    <div
+      class="d-flex text-box-container align-items-center"
+      style="position: relative; z-index: 2"
+    >
+      <div class="text-center text-white me-4">
+        <h1 class="mb-4 display-2 animate__animated animate__fadeInDown">
+          <strong>
+            <span class="typewriter" data-text="Hi, I am InnoGuide!"></span>
+          </strong>
+        </h1>
+        <h5
+          class="mb-5 display-5 animate__animated animate__fadeInDown"
+          style="animation-delay: 0.5s"
+        >
+          <span
+            data-text="Welcome to India's first Constitution Museum."
+            class="typewriter"
+          ></span>
+        </h5>
+        <div class="mt-5">
+          <a
+            class="btn btn-lg btn-primary me-3 action-btn"
+            href="#"
+            role="button"
+            data-mdb-ripple-init
+            style="opacity: 0"
+          >
+            <strong>Start Tour</strong>
+          </a>
+          <a
+            class="btn btn-lg btn-secondary action-btn"
+            href="{{ url_for('exhibits') }}"
+            role="button"
+            data-mdb-ripple-init
+            style="opacity: 0"
+          >
+            <strong>Explore Museum</strong>
+          </a>
         </div>
+      </div>
+
+      <!-- Robot Animation -->
+      <div
+        class="robot-animation justify-content-center"
+        style="opacity: 0; margin-left: 30px"
+      >
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player
+          src="https://lottie.host/7223d248-bdb2-492e-951f-565c6301be9b/x3YBLonBH0.json"
+          speed="1"
+          style="width: 500px; height: 500px; transition: transform 0.5s ease"
+          loop
+          autoplay
+          direction="1"
+          mode="normal"
+        ></lottie-player>
+      </div>
     </div>
+  </div>
 </div>
+
+<!-- JavaScript for typewriter effect and buttons floating in -->
+<script>
+  function typeWriter(element, text, i, callback) {
+    if (i < text.length) {
+      element.innerHTML =
+        text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
+      setTimeout(function () {
+        typeWriter(element, text, i + 1, callback);
+      }, 100); // Speed of typing (100ms per character)
+    } else if (callback) {
+      element.querySelector("span").style.display = "none"; // Remove blinking cursor
+      setTimeout(callback, 500); // Delay before next action
+    }
+  }
+
+  function floatInButtons() {
+    var buttons = document.querySelectorAll(".action-btn");
+    buttons.forEach(function (button, index) {
+      setTimeout(function () {
+        button.style.opacity = 1;
+        button.style.transform = "translateY(0)"; // Bring buttons in smoothly
+        button.classList.add("animate__animated", "animate__bounceIn");
+      }, 200);
+    });
+  }
+
+  function showRobotAnimation() {
+    var robot = document.querySelector(".robot-animation");
+    setTimeout(function () {
+      robot.style.opacity = 1; // Fade in robot animation
+      robot.style.transform = "translateY(0)"; // Bring in smoothly
+      robot.classList.add("animate__animated", "animate__zoomIn"); // Add animation
+    }, 500);
+  }
+
+  function startTextAnimation() {
+    var elements = document.querySelectorAll(".typewriter");
+    if (elements.length >= 2) {
+      typeWriter(
+        elements[0],
+        elements[0].getAttribute("data-text"),
+        0,
+        function () {
+          typeWriter(
+            elements[1],
+            elements[1].getAttribute("data-text"),
+            0,
+            function () {
+              floatInButtons(); // Buttons float in after second line finishes
+              showRobotAnimation(); // Show robot after buttons float in
+            }
+          );
+        }
+      );
+    }
+  }
+
+  window.onload = function () {
+    startTextAnimation();
+  };
+</script>
+
+<!-- CSS for cursor, typewriter effect, and button floating -->
+<style>
+  .video-background {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Hide overflow */
+  }
+
+  .video-background video {
+    position: absolute; /* Correct positioning */
+    top: 50%;
+    left: 50%;
+    min-width: 100%; /* Ensures the video covers the whole background */
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1; /* Behind content */
+    transform: translate(-50%, -50%); /* Center the video */
+  }
+
+  .mask {
+    position: absolute; /* Positioning for the mask */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2; /* Ensures mask is above video */
+  }
+
+  .typewriter span {
+    border-right: 2px solid white;
+    animation: blink 0.7s step-end infinite;
+  }
+
+  @keyframes blink {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
+  }
+
+  /* Buttons float in from below */
+  .action-btn {
+    transition: all 0.3s ease;
+    transform: translateY(30px); /* Initial position before floating in */
+    border: none; /* Remove default border */
+    border-radius: 25px; /* Rounded corners */
+    padding: 15px 30px; /* Increased padding */
+    font-size: 1.5rem; /* Font size */
+    cursor: pointer; /* Pointer on hover */
+  }
+  .action-btn:hover {
+    transform: translateY(-5px); /* Raise the button on hover */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    background: linear-gradient(
+      90deg,
+      #3983a5,
+      #6dc0d4
+    ); /* Gradient background */
+    color: white; /* Text color */
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    background: linear-gradient(
+      90deg,
+      #da4a11,
+      #e68c38
+    ); /* Gradient background */
+    color: white; /* Text color */
+  }
+
+  /* Hover Effects */
+  .btn-primary:hover {
+    background: linear-gradient(
+      90deg,
+      #3983a5,
+      #6dc0d4
+    ); /* Slightly darker shade */
+    box-shadow: 0 5px 15px rgba(78, 84, 200, 0.5); /* Shadow effect */
+    transform: translateY(-10px); /* Slightly raise the button */
+  }
+
+  .btn-secondary:hover {
+    background: linear-gradient(
+      90deg,
+      #ff4a4a,
+      #ff7f7f
+    ); /* Slightly darker shade */
+    box-shadow: 0 5px 15px rgba(255, 106, 106, 0.5); /* Shadow effect */
+    transform: translateY(-2px); /* Slightly raise the button */
+  }
+
+  /* Larger text and buttons for hero section */
+  .display-2 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    animation: fadeInDown 0.5s ease;
+  }
+
+  .display-5 {
+    font-size: 2rem;
+    animation: fadeInDown 0.5s ease;
+  }
+
+  .btn-lg {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+  }
+
+  /* Additional animations */
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+</style>
 {% endblock %}
