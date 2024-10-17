@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 # RAG system setup
 
-# API key and file paths
-api_key = "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"
+# API key and file pathss
+api_key = "<hf_key>"
 data_file_path = "./Data/Database_files/Sample.pdf"
 embedding_data_path = "./Data/Embedding_Store/"
 
