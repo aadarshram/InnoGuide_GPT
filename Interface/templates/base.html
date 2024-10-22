@@ -54,6 +54,8 @@
     </div>
 
     <!-- Navbar -->
+    <!-- Navbar -->
+    <!-- Navbar -->
     <nav
       class="navbar navbar-expand-lg navbar-light sticky-top bg-body-tertiary"
     >
@@ -94,44 +96,11 @@
                 >Explore</a
               >
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle {% if request.endpoint == 'about' %}active{% endif %}"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >About</a
-              >
-              <ul class="dropdown-menu">
-                <li>
-                  <a
-                    class="dropdown-item {% if request.endpoint == 'about' %}active{% endif %}"
-                    href="{{ url_for('about') }}"
-                    >The robot</a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item {% if request.endpoint == 'about' %}active{% endif %}"
-                    href="{{ url_for('about') }}"
-                    >The makers</a
-                  >
-                </li>
-              </ul>
-            </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search something"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+          <!-- Rightmost About Icon -->
+          <a class="nav-link" href="{{ url_for('about') }}">
+            <i class="fas fa-info-circle"></i>
+          </a>
         </div>
       </div>
     </nav>
@@ -167,12 +136,13 @@
         <p class="mb-0">&copy; 2024 InnoGuide. All rights reserved.</p>
       </div>
     </footer>
+    <!-- About Modal -->
   </body>
   <style>
     /* Ensure the navbar is sticky */
     .navbar {
       position: relative;
-      z-index: 3;
+      z-index: 4;
     }
 
     /* Make sure the page content and footer are displayed properly */
@@ -189,6 +159,7 @@
 
     .main {
       flex-grow: 1; /* Pushes the footer down if content is small */
+      z-index: 3;
     }
 
     /* Video Background Styling */
@@ -227,7 +198,7 @@
     /* Footer at the bottom of the page */
     footer {
       position: relative;
-      z-index: 3;
+      z-index: 4;
       background-color: #eceff1;
     }
   </style>

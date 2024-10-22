@@ -24,7 +24,7 @@
         <div class="mt-5">
           <a
             class="btn btn-lg btn-primary me-3 action-btn"
-            href="#"
+            href="{{ url_for('tour', current_id=1) }}"
             role="button"
             data-mdb-ripple-init
             style="opacity: 0"
@@ -71,10 +71,10 @@
         text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
       setTimeout(function () {
         typeWriter(element, text, i + 1, callback);
-      }, 100); // Speed of typing (100ms per character)
+      }, 100);
     } else if (callback) {
-      element.querySelector("span").style.display = "none"; // Remove blinking cursor
-      setTimeout(callback, 500); // Delay before next action
+      element.querySelector("span").style.display = "none";
+      setTimeout(callback, 500);
     }
   }
 
@@ -83,7 +83,7 @@
     buttons.forEach(function (button, index) {
       setTimeout(function () {
         button.style.opacity = 1;
-        button.style.transform = "translateY(0)"; // Bring buttons in smoothly
+        button.style.transform = "translateY(0)";
         button.classList.add("animate__animated", "animate__bounceIn");
       }, 200);
     });
@@ -92,9 +92,9 @@
   function showRobotAnimation() {
     var robot = document.querySelector(".robot-animation");
     setTimeout(function () {
-      robot.style.opacity = 1; // Fade in robot animation
-      robot.style.transform = "translateY(0)"; // Bring in smoothly
-      robot.classList.add("animate__animated", "animate__zoomIn"); // Add animation
+      robot.style.opacity = 1;
+      robot.style.transform = "translateY(0)";
+      robot.classList.add("animate__animated", "animate__zoomIn");
     }, 500);
   }
 
@@ -111,8 +111,8 @@
             elements[1].getAttribute("data-text"),
             0,
             function () {
-              floatInButtons(); // Buttons float in after second line finishes
-              showRobotAnimation(); // Show robot after buttons float in
+              floatInButtons();
+              showRobotAnimation();
             }
           );
         }
@@ -127,122 +127,32 @@
 
 <!-- CSS for cursor, typewriter effect, and button floating -->
 <style>
+  /* Add your existing CSS here, as shown previously */
+  /* Example styles below */
   .video-background {
     position: relative;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Hide overflow */
-  }
-
-  .video-background video {
-    position: absolute; /* Correct positioning */
-    top: 50%;
-    left: 50%;
-    min-width: 100%; /* Ensures the video covers the whole background */
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 1; /* Behind content */
-    transform: translate(-50%, -50%); /* Center the video */
+    height: 100vh;
+    overflow: hidden;
   }
 
   .mask {
-    position: absolute; /* Positioning for the mask */
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2; /* Ensures mask is above video */
+    z-index: 2;
   }
 
-  .typewriter span {
-    border-right: 2px solid white;
-    animation: blink 0.7s step-end infinite;
-  }
-
-  @keyframes blink {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: white;
-    }
-  }
-
-  /* Buttons float in from below */
   .action-btn {
     transition: all 0.3s ease;
-    transform: translateY(30px); /* Initial position before floating in */
-    border: none; /* Remove default border */
-    border-radius: 25px; /* Rounded corners */
-    padding: 15px 30px; /* Increased padding */
-    font-size: 1.5rem; /* Font size */
-    cursor: pointer; /* Pointer on hover */
-  }
-  .action-btn:hover {
-    transform: translateY(-5px); /* Raise the button on hover */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
-  }
-
-  /* Primary Button */
-  .btn-primary {
-    background: linear-gradient(
-      90deg,
-      #3983a5,
-      #6dc0d4
-    ); /* Gradient background */
-    color: white; /* Text color */
-  }
-
-  /* Secondary Button */
-  .btn-secondary {
-    background: linear-gradient(
-      90deg,
-      #da4a11,
-      #e68c38
-    ); /* Gradient background */
-    color: white; /* Text color */
-  }
-
-  /* Hover Effects */
-  .btn-primary:hover {
-    background: linear-gradient(
-      90deg,
-      #3983a5,
-      #6dc0d4
-    ); /* Slightly darker shade */
-    box-shadow: 0 5px 15px rgba(78, 84, 200, 0.5); /* Shadow effect */
-    transform: translateY(-10px); /* Slightly raise the button */
-  }
-
-  .btn-secondary:hover {
-    background: linear-gradient(
-      90deg,
-      #ff4a4a,
-      #ff7f7f
-    ); /* Slightly darker shade */
-    box-shadow: 0 5px 15px rgba(255, 106, 106, 0.5); /* Shadow effect */
-    transform: translateY(-2px); /* Slightly raise the button */
-  }
-
-  /* Larger text and buttons for hero section */
-  .display-2 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    animation: fadeInDown 0.5s ease;
-  }
-
-  .display-5 {
-    font-size: 2rem;
-    animation: fadeInDown 0.5s ease;
-  }
-
-  .btn-lg {
-    padding: 15px 40px;
+    transform: translateY(30px);
+    border-radius: 25px;
+    padding: 15px 30px;
     font-size: 1.5rem;
+    cursor: pointer;
   }
 
-  /* Additional animations */
-  @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+  /* Additional styles */
 </style>
 {% endblock %}

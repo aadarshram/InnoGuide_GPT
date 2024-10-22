@@ -1,49 +1,44 @@
-{% extends 'base.html' %} {% block content %}
-<div class="container mt-5">
+{% extends "base.html" %} {% block content %}
+<div class="container my-5">
+  <h1 class="text-center mb-4">About Us</h1>
   <div class="row">
-    <!-- Exhibit Image -->
     <div class="col-md-6">
-      <img
-        src="{{ exhibit.image }}"
-        class="img-fluid rounded"
-        alt="{{ exhibit.title }}"
-        style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2)"
-      />
+      <h2>Our Mission</h2>
+      <p>
+        We strive to provide the best service possible to our customers. Our
+        mission is to innovate and excel in our field, ensuring that we meet the
+        needs of those we serve.
+      </p>
     </div>
-
-    <!-- Exhibit Details -->
     <div class="col-md-6">
-      <h1 class="display-4 text-primary">{{ exhibit.title }}</h1>
-      <p class="lead text-muted">{{ exhibit.short_description }}</p>
-      <hr />
-
-      <!-- Long Description -->
-      <div class="long-description">
-        <p>{{ exhibit.long_description }}</p>
-      </div>
+      <h2>Our Vision</h2>
+      <p>
+        Our vision is to be a leader in our industry, recognized for our
+        commitment to quality, service, and customer satisfaction. We aim to
+        create a lasting impact in the communities we serve.
+      </p>
     </div>
   </div>
 
-  <!-- Additional Information Section -->
-  <div class="row mt-5">
-    <div class="col-12">
-      <h3>Additional Information</h3>
-      <p>{{ exhibit.additional_info }}</p>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h2>Our Team</h2>
+      <p>
+        Our team consists of dedicated professionals who are passionate about
+        their work. Together, we bring a wealth of experience and knowledge to
+        ensure the best outcomes for our clients.
+      </p>
     </div>
   </div>
 
-  <!-- "Go Back" Button -->
-  <div class="row mt-3">
-    <div class="col-12">
-      <button class="btn btn-secondary" onclick="window.history.back()">
-        Go Back
-      </button>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h2>Contact Us</h2>
+      <p>
+        If you have any questions or would like to learn more about what we do,
+        feel free to <a href="contact.html">contact us</a>.
+      </p>
     </div>
   </div>
 </div>
-<style>
-  .container {
-    z-index: 2;
-  }
-</style>
 {% endblock %}

@@ -1,25 +1,22 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container mt-5">
+<div id="exhibit-container" class="exhibit-container mt-5">
   <div class="row">
     <!-- Exhibit Image -->
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-      <img
-        src="{{ exhibit.image }}"
-        class="img-fluid rounded"
-        alt="{{ exhibit.title }}"
-        style="
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-          max-height: 400px;
-          object-fit: cover;
-        "
-      />
+      <div class="image-wrapper">
+        <img
+          src="{{ exhibit.image }}"
+          class="img-fluid rounded shadow"
+          alt="{{ exhibit.title }}"
+        />
+      </div>
     </div>
 
     <!-- Exhibit Details -->
     <div class="col-md-6">
-      <h1 class="display-4 text-primary">{{ exhibit.title }}</h1>
-      <p class="lead text-muted">{{ exhibit.short_description }}</p>
-      <hr />
+      <h1 class="exhibit-title">{{ exhibit.title }}</h1>
+      <p class="exhibit-description">{{ exhibit.short_description }}</p>
+      <hr class="divider" />
       <!-- Long Description -->
       <div class="long-description">
         <p>{{ exhibit.long_description }}</p>
@@ -30,16 +27,16 @@
   <!-- Additional Information Section -->
   <div class="row mt-5">
     <div class="col-12">
-      <h3>Additional Information</h3>
-      <p>{{ exhibit.additional_info }}</p>
+      <h3 class="additional-info-title">Additional Information</h3>
+      <p class="additional-info">{{ exhibit.additional_info }}</p>
     </div>
   </div>
 
-  <!-- "Go Back" Button -->
+  <!-- Action Buttons -->
   <div class="row mt-3">
-    <div class="col-12">
-      <button class="btn btn-secondary" onclick="window.history.back()">
-        Go Back
+    <div class="col-12 text-center">
+      <button class="btn btn-custom" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i> Go Back
       </button>
     </div>
   </div>
@@ -48,36 +45,89 @@
 
 <!-- Custom Styles -->
 <style>
-  /* Ensure proper spacing and alignment */
-  .container {
-    z-index: 3;
+  /* Container Styling */
+  #exhibit-container {
+    max-width: 800px;
+    margin: 0 auto; /* Center the container */
+    padding: 30px; /* Add padding for spacing */
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95); /* Semi-transparent background */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    z-index: 3; /* Ensure it sits above the video */
   }
 
-  .display-4 {
-    font-size: 2.5rem; /* Adjust for visibility */
+  .exhibit-title {
+    font-size: 2.5rem;
+    color: #007bff; /* Bright blue for emphasis */
+    font-weight: bold;
   }
 
-  .lead {
-    font-size: 1.25rem;
+  .exhibit-description {
+    font-size: 1.2rem;
     color: #6c757d;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    border: 1px solid #e0e0e0;
+    margin: 20px 0;
   }
 
   .long-description p {
     font-size: 1.1rem;
     line-height: 1.6;
     margin-top: 15px;
+    color: #333; /* Dark text for readability */
   }
 
-  /* Image Styling */
+  /* Image Wrapper for styling */
+  .image-wrapper {
+    border-radius: 10px;
+    overflow: hidden; /* Ensure image doesn't overflow */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s; /* Smooth hover effect */
+  }
+
   img {
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s; /* Smooth zoom on hover */
+  }
+
+  img:hover {
+    transform: scale(1.05); /* Zoom effect */
   }
 
   /* Button Styling */
-  .btn {
-    font-size: 1rem;
-    padding: 10px 20px;
+  .btn-custom {
+    background-color: #007bff;
+    color: #fff;
     border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+  }
+
+  .btn-custom:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .btn-danger {
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: #fff;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+
+  .additional-info-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #343a40; /* Darker title color */
+  }
+
+  .additional-info {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555; /* Slightly lighter for contrast */
   }
 </style>
