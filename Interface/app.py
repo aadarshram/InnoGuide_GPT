@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, Response, stream_with_context
-from rag_agent import query_rag_agent
-from rag_chain import query_rag_chain
+from rag_agent import user_query
 
 app = Flask(__name__)
 
@@ -87,10 +86,10 @@ def chatbot():
 def query():
     user_input = request.form["msg"]
 
-    output = query_rag_chain(user_input)
-
+    output = user_query(user_input)
     # Return a streaming response
-    return Response(stream_with_context(generate()), content_type='text/event-stream')
+    # return Response(stream_with_context(generate()), content_type='text/event-stream')
+    return output
 
 @app.route('/about')
 def about():
