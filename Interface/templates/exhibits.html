@@ -1,41 +1,49 @@
 {% extends 'base.html' %} {% block content %}
+<!-- Swiper styles -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
 <style>
   #carousel-container {
-    position: relative;
-    height: 80%; /* Adjust as necessary */
     width: 80%;
+    height: 80%;
     overflow: hidden;
+    margin: 0 auto;
+    background-color: hsla(0, 0%, 100%, 0.5);
+    padding-top: 50px;
+    padding-bottom: 50px;
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    background-color: hsla(0, 0%, 100%, 0.5);
-    margin: 0 auto; /* Center the carousel */
     z-index: 2;
+    position: relative; /* Ensure buttons are positioned relative to the container */
   }
 
-  main#carousel {
-    display: flex;
-    transition: transform 0.5s ease;
-    position: relative;
-    height: 90%;
-    padding: 20px; /* Add padding to prevent overlap */
+  .swiper {
+    width: 80%;
+    height: 80%;
   }
 
-  .item {
-    height: 100%;
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 400px;
+    height: 500px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     border-radius: 25px;
     background-color: #f7efef;
-    margin: 0 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease, opacity 0.5s;
-    flex-shrink: 0; /* Prevent shrinking */
   }
 
-  .item img {
-    width: 100%;
-    height: 150px;
+  .swiper-slide img {
+    width: 95%;
+    height: 90%;
+    margin-top: 5px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     object-fit: cover;
@@ -53,6 +61,7 @@
     font-style: italic;
     margin-bottom: 10px;
     color: #a1a1a1;
+    text-align: center;
   }
 
   .read-more {
@@ -70,101 +79,71 @@
     background-color: #0056b3;
   }
 
-  .nav-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    z-index: 2;
+  /* Swiper navigation buttons */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #00bfff; /* Custom color for navigation buttons */
   }
 
-  .nav-button {
-    background-color: #00bfff;
-    border: none;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 0 5px;
-    z-index: 2;
-  }
-
-  .nav-button:hover {
-    background-color: #007bff;
-  }
-
-  .item.scale {
-    transform: scale(1.1);
-    z-index: 1;
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    color: #007bff;
   }
 </style>
+
 <div
   id="carousel-container"
   class="d-flex justify-content-center align-items-center mt-5"
 >
-  <main id="carousel">
-    {% for exhibit in exhibits %}
-    <div
-      id="item"
-      class="card d-flex justify-content-center"
-      style="width: 500px"
-    >
-      <img
-        src="{{ exhibit.image }}"
-        class="card-img-top"
-        alt="{{ exhibit.title }}"
-      />
-      <div class="card-body">
+  <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      {% for exhibit in exhibits %}
+      <div class="swiper-slide">
+        <img src="{{ exhibit.image }}" alt="{{ exhibit.title }}" />
         <h3 class="name">{{ exhibit.title }}</h3>
-        <p class="description">{{ exhibit.description }}</p>
+        <p class="description">{{ exhibit.short_description }}</p>
         <button
           class="read-more"
-          onclick="window.location.href='{{ exhibit.link }}'"
+          onclick="window.location.href='/exhibit/{{ exhibit.id }}'"
         >
           Read More
         </button>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </main>
+    <div class="swiper-pagination"></div>
+
+    <!-- Navigation buttons -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
 </div>
-<div class="nav-buttons">
-  <button class="nav-button" onclick="moveCarousel(-1)">&#10094; Prev</button>
-  <button class="nav-button" onclick="moveCarousel(1)">Next &#10095;</button>
-</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
 <script>
-  let currentIndex = 0;
-  const items = document.querySelectorAll(".card");
-  const totalItems = items.length;
-
-  function updateCarousel() {
-    const carousel = document.getElementById("carousel");
-    const offset = currentIndex * -500; // Updated for card width (250px) and margin (20px)
-    carousel.style.transform = `translateX(${offset}px)`;
-
-    items.forEach((item, index) => {
-      if (index === currentIndex) {
-        item.style.opacity = "1";
-        item.classList.add("scale");
-      } else {
-        item.style.opacity = "0.5";
-        item.classList.remove("scale");
-      }
-    });
-  }
-
-  function moveCarousel(direction) {
-    currentIndex += direction;
-
-    if (currentIndex < 0) {
-      currentIndex = totalItems - 1; // Loop to last item
-    } else if (currentIndex >= totalItems) {
-      currentIndex = 0; // Loop to first item
-    }
-    updateCarousel();
-  }
-
-  // Initialize the carousel
-  updateCarousel();
+  var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
 </script>
 {% endblock %}

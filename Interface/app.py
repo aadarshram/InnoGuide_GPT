@@ -8,45 +8,86 @@ app = Flask(__name__)
 data_file_path = "./Data/Database_files/Sample.pdf"
 embedding_data_path = "./Data/Embedding_Store/"
 
-Exhibits = [
-    {
-        "title": "Ancient Egyptian Artifacts",
-        "description": "Explore the rich history of Ancient Egypt.",
-        "image": "./static/images/logo.jpg",
-        "link": "/exhibit/1"
-    },
-    {
-        "title": "Renaissance Paintings",
-        "description": "Discover masterpieces from the Renaissance era.",
-        "image": "./static/images/logo.jpg",
-        "link": "/exhibit/2"
-    },
-    {
-        "title": "Modern Art",
-        "description": "Experience the evolution of modern art.",
-        "image": "./static/images/logo.jpg",
-        "link": "/exhibit/3"
-    },
-    # Add more exhibits as needed
-]
-
 detail_exhibits = [
     {
         "id": 1,
-        "image": "https://example.com/image1.jpg",
+        "image": "./static/images/logo.jpg",
         "title": "Ancient Artifact",
         "short_description": "A fascinating artifact from ancient history.",
-        "long_description": "This artifact was discovered in the ruins of an ancient city...",
-        "additional_info": "It dates back to 1500 BCE and was used for ceremonial purposes."
+        "long_description": 
+        '''
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit egestas velit. Etiam non consequat urna, quis consectetur justo. Curabitur condimentum nunc vel purus egestas, ac lobortis diam vehicula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris pretium eleifend aliquet. Quisque sed libero erat. Duis convallis sed diam sit amet consequat. Vivamus rhoncus dui at lorem fringilla, quis viverra ligula pellentesque.
+
+Quisque tellus erat, scelerisque ac cursus quis, tempus non dolor. Donec vel suscipit dolor. Integer egestas euismod erat euismod tempor. Morbi scelerisque quam orci, non tincidunt sem eleifend in. Aenean massa velit, tempor ut ultricies quis, volutpat quis orci. Vestibulum ultricies ante vitae diam finibus iaculis. Proin non libero quis tellus vulputate elementum. Maecenas rutrum porta velit, in pulvinar elit rutrum at. Sed tincidunt justo eros, eu mattis urna tincidunt sed. Nam vitae elit pharetra, placerat odio vel, finibus ipsum. Nunc auctor eget ligula quis sollicitudin.
+
+Nullam rutrum et elit id luctus. Praesent porttitor laoreet lectus, non tristique velit. Nam eget libero id mi iaculis malesuada. Suspendisse vel nulla viverra, porta neque ut, eleifend dolor. Donec egestas sem non maximus feugiat. Maecenas pulvinar, turpis nec ullamcorper fermentum, turpis turpis fringilla nulla, nec bibendum orci nisi vel ligula. Sed sagittis magna eget tortor ullamcorper auctor. Nulla facilisi. Sed sit amet arcu volutpat, volutpat eros id, auctor neque. Ut magna sapien, venenatis in arcu eget, finibus dapibus neque. Donec congue erat nec mi pretium accumsan.
+        '''
     },
     {
         "id": 2,
-        "image": "https://example.com/image2.jpg",
+        "image": "./static/images/logo.jpg",
         "title": "Modern Art Piece",
         "short_description": "A stunning example of modern art.",
         "long_description": "This artwork represents the abstract nature of human emotions...",
         "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
-    }
+    },
+       {
+        "id": 3,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 4,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 5,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 6,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 7,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 8,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 9,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },   {
+        "id": 10,
+        "image": "./static/images/logo.jpg",
+        "title": "Modern Art Piece",
+        "short_description": "A stunning example of modern art.",
+        "long_description": "This artwork represents the abstract nature of human emotions...",
+        "additional_info": "Created by a famous artist in 2021, this piece is part of the XYZ collection."
+    },
     # Add more detailed exhibits as needed
 ]
 
@@ -55,11 +96,24 @@ detail_exhibits = [
 def home():
     return render_template('home.html', active_page='home')
 
+@app.route('/chatbot')
+def chatbot():
+    return render_template('chatbot.html', active_page='chatbot')
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html', active_page='about')
+
+@app.route('/exhibits')
+def exhibits():
+    return render_template('exhibits.html', exhibits=detail_exhibits, active_page='exhibits')
+
 @app.route('/exhibit/<int:exhibit_id>')
 def exhibit_page(exhibit_id):
     exhibit = get_exhibit_by_id(exhibit_id)
     if exhibit:
-        return render_template('exhibit.html', exhibit=exhibit, exhibit_id=exhibit_id)
+        return render_template('exhibit.html', exhibit=detail_exhibits, exhibit_id=exhibit_id)
     return "Exhibit not found", 404
 
 @app.route('/tour/<int:current_id>')
@@ -77,10 +131,7 @@ def get_exhibit_by_id(exhibit_id):
             return exhibit
     return None
 
-# Other routes...
-@app.route('/chatbot')
-def chatbot():
-    return render_template('chatbot.html', active_page='chatbot')
+
 
 @app.route('/get', methods=['POST'])
 def query():
@@ -90,14 +141,6 @@ def query():
     # Return a streaming response
     # return Response(stream_with_context(generate()), content_type='text/event-stream')
     return output
-
-@app.route('/about')
-def about():
-    return render_template('about.html', exhibits=Exhibits, active_page='about')
-
-@app.route('/exhibits')
-def exhibits():
-    return render_template('exhibits.html', exhibits=Exhibits, active_page='exhibits')
 
 if __name__ == '__main__':
     app.run(debug=True)

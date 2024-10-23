@@ -14,6 +14,11 @@
         ></div>
       </div>
 
+      <!-- Chat Content Area - Scrollable -->
+      <div id="chat-content" class="chat-content">
+        <!-- Chat responses will be inserted here -->
+      </div>
+
       <!-- Chat Footer with Input -->
       <form id="messageArea" class="input-group mb-3">
         <input
@@ -22,9 +27,9 @@
           name="msg"
           placeholder="Type your message or click the mic for voice"
           autocomplete="on"
-          class="form-control form-control-lg"
+          class="form-control form-control-lg input-box"
           required
-          style="font-size: 24px"
+          style="font-size: 24px; transition: height 0.3s"
         />
         <div class="input-group-append d-flex align-items-center">
           <button
@@ -54,7 +59,6 @@
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  // Typewriting effect function for the prompt
   const typewriterText = "What's on your mind?";
   const typewriterElement = document.getElementById("typewriter");
   let index = 0;
@@ -63,19 +67,16 @@
     if (index < typewriterText.length) {
       typewriterElement.innerHTML += typewriterText.charAt(index);
       index++;
-      setTimeout(typeWriter, 100); // Adjust typing speed (100 ms)
+      setTimeout(typeWriter, 100);
     }
   }
 
-  // Start typewriter effect for the prompt
   typeWriter();
 
-  // Function to clear the typewriter text
   function clearTypewriter() {
-    typewriterElement.innerHTML = ""; // Clear the typewriter text
+    typewriterElement.innerHTML = "";
   }
 
-  // Typewriting effect function for chatbot response
   function typeWriterResponse(text, element) {
     let responseIndex = 0;
 
@@ -83,44 +84,30 @@
       if (responseIndex < text.length) {
         element.innerHTML += text.charAt(responseIndex);
         responseIndex++;
-        setTimeout(writeResponse, 50); // Adjust typing speed for chatbot response
+        setTimeout(writeResponse, 50);
       }
     }
 
     writeResponse();
   }
 
-  // Event listener for form submission
   $("#messageArea").on("submit", function (event) {
-    event.preventDefault(); // Prevent the form from submitting
+    event.preventDefault();
 
-    // Clear the typewriter text on first submission
     if (index > 0) {
       clearTypewriter();
     }
 
-    // Move the input field down smoothly
-    $("#messageArea").animate(
-      {
-        marginTop: "600px", // Adjust this value for positioning
-      },
-      1000
-    );
-
-    // Get the user's input and clear the field
     const userMessage = $("#text").val();
-    $("#text").val(""); // Clear the input field after submission
+    $("#text").val("");
 
-    // Remove previous response if it exists
     $(".chat-response").remove();
 
-    // Create new response element
     const chatbotResponse = $(
       '<div id="chatbotResponse" class="chat-response"></div>'
     );
-    $("#chat-container").prepend(chatbotResponse);
+    $("#chat-content").append(chatbotResponse);
 
-    // Send the user's message to the Flask server
     fetch("/get", {
       method: "POST",
       headers: {
@@ -133,18 +120,17 @@
         const decoder = new TextDecoder("utf-8");
         let done = false;
 
-        // Read the stream
         const readStream = async () => {
           while (!done) {
             const { done: streamDone, value } = await reader.read();
             done = streamDone;
             if (value) {
               const text = decoder.decode(value, { stream: true });
-              // Use the typewriter effect to display the streamed chatbot response
               typeWriterResponse(
                 text,
                 document.getElementById("chatbotResponse")
               );
+              scrollChatToBottom();
             }
           }
         };
@@ -152,59 +138,93 @@
         readStream();
       })
       .catch((error) => {
-        // Handle any errors that occur during the request
         const errorText = "Sorry, something went wrong.";
         typeWriterResponse(
           errorText,
           document.getElementById("chatbotResponse")
         );
+        scrollChatToBottom();
       });
+
+    // Expand input box after first input
+    expandInputBox();
   });
+
+  function expandInputBox() {
+    const inputBox = document.getElementById("text");
+    inputBox.style.height = "100px"; // Expand the input box height
+  }
+
+  function scrollChatToBottom() {
+    const chatContent = document.getElementById("chat-content");
+    chatContent.scrollTop = chatContent.scrollHeight;
+  }
 </script>
+
 <style>
   .video-background {
     position: relative;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Hide overflow */
+    height: 100vh;
+    overflow: hidden;
   }
 
   .video-background video {
-    position: absolute; /* Correct positioning */
+    position: absolute;
     top: 50%;
     left: 50%;
-    min-width: 100%; /* Ensures the video covers the whole background */
+    min-width: 100%;
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: 1; /* Behind content */
-    transform: translate(-50%, -50%); /* Center the video */
+    z-index: 1;
+    transform: translate(-50%, -50%);
   }
 
   .mask {
-    position: absolute; /* Positioning for the mask */
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2; /* Ensures mask is above video */
+    z-index: 2;
   }
 
-  /* Container for chat prompt and input area */
   .chat-container {
-    width: 100%; /* Full width */
-    border-radius: 25px; /* Rounded edges */
-    padding: 20px; /* Add padding for better spacing */
-    background-color: rgba(
-      255,
-      255,
-      255,
-      0.9
-    ); /* Light background for contrast */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    position: relative; /* Important for positioning the chatbot response */
+    width: 100%;
+    border-radius: 25px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
   }
 
-  /* Button styles */
+  /* Chat content area with scroll */
+  .chat-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  /* Scrollbar styles */
+  .chat-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .chat-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .chat-content::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  .chat-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
   .btn-secondary {
     background-color: #cc3608;
     border: none;
@@ -212,7 +232,7 @@
   }
 
   .btn-secondary:hover {
-    background-color: #d95a3a; /* Lighter shade on hover */
+    background-color: #d95a3a;
   }
 
   .btn-primary {
@@ -222,13 +242,12 @@
   }
 
   .btn-primary:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #0056b3;
   }
 
-  /* Input field styles */
   #text {
     transition: border-color 0.3s ease;
-    border-radius: 25px; /* Rounded edges */
+    border-radius: 25px;
   }
 
   #text:focus {
@@ -236,7 +255,6 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
 
-  /* Chatbot response style */
   .chat-response {
     font-size: 25px;
     color: #333;
@@ -246,5 +264,4 @@
     text-align: center;
   }
 </style>
-
 {% endblock %}
